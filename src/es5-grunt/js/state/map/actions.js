@@ -6,7 +6,7 @@ define([
             return {
                 type: constants.actionTypes.LOADING,
                 payload: {
-                    loading: isLoading
+                    isLoading: isLoading
                 }
             };
         },

@@ -4,10 +4,17 @@
     },
     "view": {
         "container": "viewDiv",
-        "zoom": 4,
+        /*"zoom": 4,
         "center": [
             15,
             65
-        ]
+        ]*/
+        "extent": { // autocasts as new Extent()
+            "xmin": -9177811,
+            "ymin": 4247000,
+            "xmax": -9176791,
+            "ymax": 4247784,
+            "spatialReference": 102100
+        }
     }
 }

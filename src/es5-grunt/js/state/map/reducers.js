@@ -24,12 +24,14 @@ define([
         if (state === undefined) state = initialState.view;
         switch (action.type) {
             case constants.actionTypes.UPDATE_EXTENT:
+                var extent = action.payload.extent ? action.payload.extent.clone() : {};
+                var viewpoint = action.payload.viewpoint ? action.payload.viewpoint.clone() : {};
                 return {
-                    extent: action.payload.extent.clone(),
+                    extent: extent,
                     rotation: action.payload.rotation,
                     zoom: action.payload.zoom,
                     type: action.payload.type,
-                    viewpoint: action.payload.viewpoint.clone()
+                    viewpoint: viewpoint
                 };
 
             default:
@@ -39,11 +41,11 @@ define([
 
     return {
         loading: function (state, action) {
-            if (state === undefined) state = { loading: true };
+            if (state === undefined) state = { isLoading: true };
             switch (action.type) {
                 case constants.actionTypes.LOADING:
                     return {
-                        loading: action.payload.loading
+                        isLoading: action.payload.isLoading
                     };
 
                 default:

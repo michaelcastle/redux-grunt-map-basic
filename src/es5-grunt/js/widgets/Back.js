@@ -12,7 +12,6 @@ define([
 
     return declare([], {
 
-        spinner: null,
         view: null,
         back: null,
 

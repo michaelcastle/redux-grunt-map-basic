@@ -12,8 +12,10 @@ define([
     'esri/views/MapView',
     'esri/core/promiseUtils',
     'app/state/observer', // redux
-    'app/widgets/WidgetController' // widgets
-], function (declare, lang, all, Map, MapView, promiseUtils, observer, WidgetController) {
+    'app/widgets/WidgetController', // widgets
+    'esri/layers/FeatureLayer',
+    'dojo/domReady!'
+], function (declare, lang, all, Map, MapView, promiseUtils, observer, WidgetController, FeatureLayer) {
 
     return declare([], {
 
@@ -27,9 +29,10 @@ define([
 
             this.observer = observer;
             observer.store.dispatch(observer.map.actions.loading(true));
-            
+
             this.initaliseMap();
             this.initialiseWidgets();
+            this.addLayers();
 
             this.view
                 .then(this.afterInit.bind(this))
@@ -45,6 +48,14 @@ define([
             observer.store.dispatch(observer.map.actions.loading(false));
             console.error(ex);
             return promiseUtils.resolve();
+        },
+
+        addLayers: function () {
+            var featureLayer = new FeatureLayer({
+                url: 'https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0'
+            });
+
+            this.map.add(featureLayer);
         },
 
         initaliseMap: function () {

@@ -20,7 +20,7 @@ define([
         },
 
         addSpinner: function () {
-            this.spinner = new SpinnerController(store, '');
+            this.spinner = new SpinnerController(store, 'spinner-loader');
         }
     });
 });

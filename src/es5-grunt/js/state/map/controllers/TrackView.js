@@ -42,7 +42,6 @@ define([
             } catch (e) { 
                 console.error(e);
             }
-            //mapEvents.OnNRMViewChanged(this.view.extent);
         },
 
         /**
@@ -58,7 +57,7 @@ define([
         back: function (view) {
             try {
                 this.pauseTracking = true;
-                var options;
+                /*var options;
 
                 if (view.type === '3d') {
                     options = {
@@ -66,7 +65,7 @@ define([
                     };
                 } else {
                     options = view.extent;
-                }
+                }*/
                 this.view.goTo(view.viewpoint);
             } catch (e) { 
                 console.error(e);
