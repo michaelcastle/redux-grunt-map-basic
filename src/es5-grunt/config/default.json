@@ -1,0 +1,13 @@
+{
+    "map": {
+        "basemap": "streets-vector"
+    },
+    "view": {
+        "container": "viewDiv",
+        "zoom": 4,
+        "center": [
+            15,
+            65
+        ]
+    }
+}

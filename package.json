@@ -1,0 +1,46 @@
+{
+  "name": "innov-redux-example",
+  "version": "1.0.0",
+  "description": "Redux esri js api 4.x example",
+  "main": "src/index.js",
+  "directories": {
+    "source": "./src/es5-grunt",
+    "destination": "./dist/src/es5-grunt",
+    "build": "./dist/release"
+  },
+  "scripts": {
+    "start": "grunt",
+    "postinstall": "yarn install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "redux",
+    "esri"
+  ],
+  "author": "Michael Castle",
+  "license": "MIT",
+  "dependencies": {
+    "redux": "^3.6.0",
+    "redux-undo": "^1.0.0-beta9-8"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-aws-s3": "^0.14.5",
+    "grunt-bowercopy": "^1.2.4",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-handlebars": "^1.0.0",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-less": "^1.4.1",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-dojo": "^1.1.2",
+    "grunt-jsdoc": "^2.1.0",
+    "grunt-replace": "^1.0.1",
+    "load-grunt-configs": "^1.0.0",
+    "load-grunt-tasks": "^3.5.2",
+    "uglify-js": "^2.8.12"
+  }
+}

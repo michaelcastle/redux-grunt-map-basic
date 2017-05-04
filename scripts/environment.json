@@ -1,0 +1,28 @@
+{
+    "local": {
+        "hostname": "localhost",
+        "port": 9001
+    },
+    "proxy": {
+        "username": "castlem",
+        "password": "Welcome4",
+        "server": "web-prdproxy-usr.dmz",
+        "port": "80"
+    },
+    "es5-grunt": {
+        "production": {
+            "dir": "/dist/release/redux-example-es5-grunt"
+        },
+        "development": {
+            "dir": "/dist/src/redux-example-es5-grunt"
+        }
+    },
+    "aws": {
+        "key": "AKIAJMZOUD2OJ6DXUIAQ",
+        "secret": "5MpbFTBW9CS1ocQx27+YaUho+LBf6YWgssro/X8h",
+        "bucket": "ea-js-test",
+        "region": "ap-southeast-2",
+        "s3url": "ea-js-test.s3-website-ap-southeast-2.amazonaws.com"
+    }
+}
+

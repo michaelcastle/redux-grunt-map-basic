@@ -1,0 +1,26 @@
+{
+  "name": "innov-redux-example",
+  "description": "Redux esri js api 4.x example",
+  "version": "1.0.0",
+  "authors": [
+    "michael castle"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "esri": "arcgis-js-api#4.3.0",
+    "redux": "https://npmcdn.com/redux/dist/redux.js"
+  },
+  "resolutions": {
+    "dojo": "v1.12.1/esri-3.20.0",
+    "dijit": "v1.12.1/esri-3.20.0",
+    "dojox": "v1.12.1/esri-3.20.0"
+  }
+}

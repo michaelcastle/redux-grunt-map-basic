@@ -1,0 +1,1 @@
+C:\Users\castlem\qld-dnrm-smis-mapviewer\apps\smis\bower_components\util\buildscripts\build.bat --profile C:\Users\castlem\qld-dnrm-smis-mapviewer\apps\smis\build.profile.js

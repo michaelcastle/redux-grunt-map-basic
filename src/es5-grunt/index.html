@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='initial-scale=1, maximum-scale=1, user-scalable=no'>
+    <title>Redux Esri Map Example</title>
+    <!-- Latest compiled and minified CSS -->
+
+    <!-- ArcGIS JS @@esriVersion -->
+    <link rel="stylesheet" href="https://js.arcgis.com/@@esriVersion/esri/css/main.css">
+    <link rel='stylesheet' type='text/css' href='css/default.css?v=@@version' />
+    <style>
+        html,
+        body,
+        #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="viewDiv"></div>
+
+    @@liveReload
+
+    <script>
+        var buildVersion = "@@version"
+    </script>
+    <script type="text/javascript" src='config/dojoConfig.js?v=@@version'></script>
+
+    <script src='https://js.arcgis.com/@@esriVersion/'></script>
+    <script type="text/javascript" src='js/boot.js?v=@@version'></script>
+
+</body>
+
+</html>

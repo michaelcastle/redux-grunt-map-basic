@@ -1,0 +1,58 @@
+{
+    "env": {
+        "browser": true,
+        "amd": true
+    },
+    "globals": {
+        "afterEach": false,
+        "angular": false,
+        "beforeEach": false,
+        "browser": false,
+        "by": false,
+        "element": false,
+        "expect": false,
+        "describe": false,
+        "FileList": false,
+        "inject": false,
+        "it": false,
+        "jasmine": false,
+        "lxHelpers": false,
+        "spyOn": false,
+        "UAParser": false,
+        "xdescribe": false,
+        "xit": false,
+        "module": false
+    },
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        "no-console": 0,
+        "indent": [
+            "error",
+            4,
+            { "SwitchCase": 1 }
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "eqeqeq": [
+            2,
+            "allow-null"
+        ]
+    }
+}
