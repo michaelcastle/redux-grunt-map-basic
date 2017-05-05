@@ -2,6 +2,37 @@
 
 Note: This is a working experimental version and so the README is a little rusty
 
+## TODOs: 
+### 1. Update Readme
+The readme has not been proof read below the TODOs. This needs to be updated and expanded on.
+
+### 2. Use Observables
+Fix up the way subscribing to state change happens. My idea is that this will become an Observable. [This article](https://github.com/reactjs/redux/issues/303#issuecomment-125184409) goes into it a little bit but I still don't understand it enough. 
+[This project](https://github.com/acdlite/redux-rx) also might be helpful for this.
+
+### 3. Create a UI
+In the view folder I still need to create a UI of some description.
+I was thinking of either a dojo or react front end, or even possibly doing both.
+
+### 4. Create a more detailed layers/toc module
+In this it would be a more powerful layers and toc module that will handle everything to do with adding, removing layers and any other action that may be performed from a toc.
+This can grow with each project to include more and functionality. This way any action for any new application will easily become part of the next application.
+
+### 5. Write an architecture doc
+I want to write a document to describe some of the decisions, why I did it, and some other explinations on what to do in the future.
+
+### 6. ES6 and Webpack
+Create this same application in ES6 and webpack. 
+
+### 7. Package each module
+Make each module packagable and have no/minimal dependencies. That way you could bower/npm the packages and include them into a new application to include state mapping
+
+### 8. Add some jsdoc
+Add some jsdoc and comment what's happening. Currently I haven't written any because things have changed so much during the experimental stage
+
+
+## Summary
+
 ## The Idea
 
 The goal of the project is to clearly define the interface between the work of the designers and that of the map makers.  An example prototype of this interface will set out a framework for the delivery of projects between external UI/UX vendors and the Map Logic. 

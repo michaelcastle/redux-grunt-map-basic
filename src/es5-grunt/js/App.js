@@ -32,7 +32,7 @@ define([
 
             this.initaliseMap();
             this.initialiseWidgets();
-            this.layersAdd();
+            this.layersAdd('https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0');
 
             this.view
                 .then(this.afterInit.bind(this))
@@ -50,9 +50,9 @@ define([
             return promiseUtils.resolve();
         },
 
-        layersAdd: function () {
+        layersAdd: function (url) {
             var featureLayer = new FeatureLayer({
-                url: 'https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0'
+                url: url
             });
 
             this.map.add(featureLayer);
