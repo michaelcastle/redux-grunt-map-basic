@@ -7,8 +7,8 @@ define([
     'dojo/_base/declare',
     'dojo/_base/lang',
     'app/state/appStore',
-    'app/state/toc/controllers/TocController'
-], function (declare, lang, store, TocController) {
+    'app/state/modules/layers/controllers/LayersController'
+], function (declare, lang, store, LayersController) {
 
     return declare([], {
 
@@ -22,7 +22,7 @@ define([
         },
 
         addToc: function () {
-            this.toc = new TocController(store, this.map);
+            this.toc = new LayersController(store, this.map);
         }
     });
 });

@@ -3,13 +3,13 @@ define([
     'esri/core/Collection',
     'dojo/_base/lang'
 ], function (constants, Collection, lang) {
-    var toc = function (state, action) {
+    var layers = function (state, action) {
         if (state === undefined) state = {
             layers: {},
             order: new Collection()
         };
         switch (action.type) {
-            case constants.actionTypes.ADD_LAYERS:
+            case constants.actionTypes.LAYERS_ADD:
                 var layers = lang.clone(state.layers);
                 lang.mixin(layers, action.payload.layers);
 
@@ -56,47 +56,47 @@ define([
     };
 
     return {
-        toc: function (state, action) {
+        layers: function (state, action) {
             if (state === undefined) state = {
                 layers: {},
                 order: new Collection()
             };
             switch (action.type) {
-                case constants.actionTypes.ADD_LAYERS:
-                    return toc(state, action);
+                case constants.actionTypes.LAYERS_ADD:
+                    return layers(state, action);
 
                 case constants.actionTypes.LAYER_VISIBILITY:
                     var visState = {
                         layers: lang.clone(state.layers),
                         order: state.order.clone()
                     };
-                    return toc(visState, action);
+                    return layers(visState, action);
 
                 case constants.actionTypes.LAYER_OPACITY:
                     var opacState = {
                         layers: lang.clone(state.layers),
                         order: state.order.clone()
                     };
-                    return toc(opacState, action);
+                    return layers(opacState, action);
 
                 case constants.actionTypes.LAYER_CLEAR:
                     var lcState = {
                         layers: lang.clone(state.layers),
                         order: state.order.clone()
                     };
-                    return toc(lcState, action);
+                    return layers(lcState, action);
 
                 case constants.actionTypes.LAYER_CONTAINS_FEATURES:
                     var fState = {
                         layers: lang.clone(state.layers),
                         order: state.order.clone()
                     };
-                    return toc(fState, action);
+                    return layers(fState, action);
 
                 case constants.actionTypes.REORDER:
                     return {
                         layers: lang.clone(state.layers),
-                        order: toc(state, action)
+                        order: layers(state, action)
                     };
 
                 default:

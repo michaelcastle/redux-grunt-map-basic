@@ -24,7 +24,7 @@ define([
 
             // Update layer list when new layers are added to the map
             this.map.layers.on('change', lang.hitch(this, function (changed) {
-                this.store.dispatch(actions.addLayers(changed.added));
+                this.store.dispatch(actions.layersAdd(changed.added));
                 changed.added.forEach(function (layer) {
                     layer.then(this.setObservable.bind(this));
                 }, this);

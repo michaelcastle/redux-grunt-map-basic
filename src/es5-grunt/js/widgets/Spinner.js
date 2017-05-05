@@ -7,7 +7,7 @@ define([
     'dojo/_base/declare',
     'dojo/_base/lang',
     'app/state/appStore',
-    'app/state/map/controllers/Spinner'
+    'app/state/modules/map/controllers/Spinner'
 ], function (declare, lang, store, SpinnerController) {
 
     return declare([], {

@@ -32,7 +32,7 @@ define([
 
             this.initaliseMap();
             this.initialiseWidgets();
-            this.addLayers();
+            this.layersAdd();
 
             this.view
                 .then(this.afterInit.bind(this))
@@ -50,7 +50,7 @@ define([
             return promiseUtils.resolve();
         },
 
-        addLayers: function () {
+        layersAdd: function () {
             var featureLayer = new FeatureLayer({
                 url: 'https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0'
             });

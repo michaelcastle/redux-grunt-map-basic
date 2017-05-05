@@ -7,9 +7,7 @@ define([
             LOADING: 'map-loading',
             LAT_LONG_UPDATE: 'map-latlong-update',
             DISTANCE_UPDATE: 'map-distance-update',
-            DISTANCE_CLEAR: 'map-distance-clear',
-            UPDATE_EXTENT: 'map-extent-update',
-            BACK: 'map-extent-back'
+            DISTANCE_CLEAR: 'map-distance-clear'
         }
     };
 });

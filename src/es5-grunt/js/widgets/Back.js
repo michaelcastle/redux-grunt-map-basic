@@ -7,13 +7,14 @@ define([
     'dojo/_base/declare',
     'dojo/_base/lang',
     'app/state/appStore',
-    'app/state/map/controllers/TrackView'
-], function (declare, lang, store, TrackView) {
+    'app/state/modules/mapView/controllers/ViewHistory',
+    'app/state/modules/mapView/controllers/ViewUndo'
+], function (declare, lang, store, ViewHistory, ViewUndo) {
 
     return declare([], {
 
         view: null,
-        back: null,
+        viewHistory: null,
 
         constructor: function (options) {
             lang.mixin(this, options);
@@ -21,7 +22,8 @@ define([
         },
 
         addBack: function () {
-            this.back = new TrackView(store, this.view);
+            this.viewHistory = new ViewHistory(store, this.view);
+            this.viewUndo = new ViewUndo(store, this.view);
         }
     });
 });

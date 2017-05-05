@@ -3,7 +3,7 @@ define([
     'esri/core/Collection'
 ], function (constants, Collection) {
     return {
-        addLayers: function (items) {
+        layersAdd: function (items) {
             var layers = {};
             var order = new Collection();
             items.forEach(function (layer) {
@@ -19,7 +19,7 @@ define([
                 order.push(item.id);
             });
             return {
-                type: constants.actionTypes.ADD_LAYERS,
+                type: constants.actionTypes.LAYERS_ADD,
                 payload: {
                     layers: layers,
                     order: order

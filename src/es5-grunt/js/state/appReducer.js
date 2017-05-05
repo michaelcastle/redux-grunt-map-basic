@@ -1,14 +1,15 @@
 define([
     'vendor/Redux/redux.min',
-    'app/state/map/reducers',
-    'app/state/ui/reducers',
-    'app/state/toc/reducers'
-], function (redux, mapReducers, uiReducers, tocReducers) {
+    './modules/map/reducers',
+    './modules/ui/reducers',
+    './modules/layers/reducers',
+    './modules/mapView/reducers'
+], function (redux, mapReducers, uiReducers, layersReducers, mapViewReducers) {
     var combined = redux.combineReducers({
         loading: mapReducers.loading,
         latLong: mapReducers.latLongUpdate,
-        toc: tocReducers.toc,
-        view: mapReducers.updateView,
+        layers: layersReducers.layers,
+        view: mapViewReducers.updateView,
         buttonClick: uiReducers.buttonClick
     });
 

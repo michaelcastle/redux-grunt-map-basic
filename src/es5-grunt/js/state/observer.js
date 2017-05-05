@@ -1,15 +1,17 @@
 define([
     './appStore',
-    'app/state/map/index',
-    'app/state/ui/index',
-    'app/state/toc/index'
-], function (appStore, map, ui, toc) {
+    './modules/map/index',
+    './modules/ui/index',
+    './modules/layers/index',
+    './modules/mapView/index'
+], function (appStore, map, ui, layers, mapView) {
 
     var observer = {
         store: appStore,
         map: map,
         ui: ui,
-        toc: toc
+        layers: layers,
+        mapView: mapView
     };
 
     return observer;
