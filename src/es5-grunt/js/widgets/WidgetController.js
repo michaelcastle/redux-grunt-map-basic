@@ -9,8 +9,8 @@ define([
     'app/widgets/Toc',
     'app/widgets/Spinner',
     'app/widgets/Back',
-    'dojo/domReady!'
-], function (declare, lang, Toc, Spinner, Back) {
+    'app/widgets/Coordinates'
+], function (declare, lang, Toc, Spinner, Back, Coordinates) {
 
     return declare([], {
 
@@ -29,6 +29,7 @@ define([
             this.addSpinner();
             this.addToc();
             this.addBack();
+            this.addCoordinates();
         },
 
         addSpinner: function () {
@@ -45,6 +46,10 @@ define([
             this.back = new Back({
                 view: this.view
             });
+        },
+
+        addCoordinates: function () {
+            this.coordinates = new Coordinates({ view: this.view });
         }
     });
 });

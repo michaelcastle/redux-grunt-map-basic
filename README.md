@@ -10,6 +10,10 @@ The readme has not been proof read below the TODOs. This needs to be updated and
 Fix up the way subscribing to state change happens. My idea is that this will become an Observable. [This article](https://github.com/reactjs/redux/issues/303#issuecomment-125184409) goes into it a little bit but I still don't understand it enough. 
 [This project](https://github.com/acdlite/redux-rx) also might be helpful for this.
 
+Update (MC): 
++ I have gotten started on this. In the `observable.js` file in `state/modules/Map` this has been split out.
++ Need to create a shared library to handle this. Will be a bit trickier with layers
+
 ### 3. Create a UI
 In the view folder I still need to create a UI of some description.
 I was thinking of either a dojo or react front end, or even possibly doing both.
@@ -19,7 +23,7 @@ In this it would be a more powerful layers and toc module that will handle every
 This can grow with each project to include more and functionality. This way any action for any new application will easily become part of the next application.
 
 ### 5. Write an architecture doc
-I want to write a document to describe some of the decisions, why I did it, and some other explinations on what to do in the future.
+I want to write a document to describe some of the decisions, why I did it, and some other explanations on what to do in the future.
 
 ### 6. ES6 and Webpack
 Create this same application in ES6 and webpack. 
@@ -30,6 +34,16 @@ Make each module packagable and have no/minimal dependencies. That way you could
 ### 8. Add some jsdoc
 Add some jsdoc and comment what's happening. Currently I haven't written any because things have changed so much during the experimental stage
 
+### 9. Testing
+Add automated testing and decide on some framework for this
+
+
+## dev-tools console commands
+The following commands will update the state/map in the console
++ `redo extent`: app.observer.store.dispatch(app.observer.mapView.actions.redo());
++ `previous extent`: app.observer.store.dispatch(app.observer.mapView.actions.back());
++ `clear extent tracking`: app.observer.store.dispatch(app.observer.mapView.actions.resetTrackView());
++ `show|hide loader`: app.observer.store.dispatch(app.observer.map.actions.loading(<true|false>));
 
 ## Summary
 

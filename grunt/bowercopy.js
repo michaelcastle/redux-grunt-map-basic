@@ -6,7 +6,10 @@ module.exports = {
         },
         files: {
             'Redux': 'redux/dist/redux.min.js',
-            'ReduxUndo': 'redux-undo/dist/redux-undo.js'
+            'ReduxUndo': 'redux-undo/dist/redux-undo.js',
+            'ReduxObservable': 'redux-observable/dist/redux-observable.min.js',
+            'Rx': 'rx/dist/rx.all.js',
+            'redux-rx': 'redux-rx/dist/*'
         }
     }
 };

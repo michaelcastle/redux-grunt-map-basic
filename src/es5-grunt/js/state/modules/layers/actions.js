@@ -12,8 +12,9 @@ define([
                     opacity: layer.opacity,
                     visible: layer.visible,
                     title: layer.title,
-                    group: layer.group,
-                    containsFeatures: (layer.type !== 'feature' || layer.url || layer.source.length > 0)
+                    type: layer.type,
+                    url: layer.url,
+                    containsFeatures: (layer.type !== 'feature' || !!layer.url || layer.source.length > 0)
                 };
                 layers[item.id] = item;
                 order.push(item.id);

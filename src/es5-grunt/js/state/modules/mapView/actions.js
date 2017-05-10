@@ -25,6 +25,12 @@ define([
                 type: constants.actionTypes.BACK,
                 payload: 1
             };
+        },
+        redo: function () {
+            return {
+                type: constants.actionTypes.REDO,
+                payload: 1
+            };
         }
     };
 });

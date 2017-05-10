@@ -1,8 +1,8 @@
 define([
 ], function () {
     var selector = {
-        back: function (state) {
-            return state.back;
+        view: function (state) {
+            return state.view.present;
         }
     };
     return selector;

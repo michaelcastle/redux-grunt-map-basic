@@ -18,7 +18,7 @@ define([
 
         constructor: function (store, view) {
             this.view = view;
-            observers.undo(store, lang.hitch(this, this.undo));
+            observers.viewChange(store, lang.hitch(this, this.undo));
         },
 
         /**
@@ -26,7 +26,9 @@ define([
          */
         undo: function (view) {
             try {
+                if (!view) return;
                 viewChange.recordHistory = false;
+                if (view.extent.equals(this.view.extent)) return;
                 viewChange.goTo(this.view, view.viewpoint);
             } catch (e) { 
                 console.error(e);

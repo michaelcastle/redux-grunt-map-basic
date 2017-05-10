@@ -10,12 +10,14 @@ define([
                 }
             };
         },
-        latLongUpdate: function (xy, point) {
+        latLongUpdate: function (x, y, latitude, longitude) {
             return {
                 type: constants.actionTypes.LAT_LONG_UPDATE,
                 payload: {
-                    xy: xy,
-                    point: point
+                    x: x,
+                    y: y,
+                    latitude: latitude,
+                    longitude: longitude
                 }
             };
         }

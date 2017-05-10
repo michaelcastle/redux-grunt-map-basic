@@ -54,15 +54,18 @@ define([
 
         setLayerVisible: function (id, visible) {
             var layer = this.getLayer(id);
+            if (!layer) return;
             layer.visible = visible;
         },
 
         setLayerOpacity: function (id, opacity) {
             var layer = this.getLayer(id);
+            if (!layer) return;
             layer.opacity = opacity;
         },
 
         setLayerOrder: function (order) {
+            if (!order) return;
             order.forEach(function (id, i) {
                 var layerIndex = this.map.layers.findIndex(function (item) {
                     return item.id === id;
@@ -75,6 +78,7 @@ define([
 
         clearLayerById: function (id) {
             var layer = this.getLayer(id);
+            if (!layer) return;
             if (layer.source) {
                 layer.source.removeAll();
             }

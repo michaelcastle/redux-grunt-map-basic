@@ -29,15 +29,16 @@ define([
             limit: 50,
             undoType: constants.actionTypes.BACK,
             redoType: constants.actionTypes.REDO,
+            clearHistoryType: constants.actionTypes.RESET,
             initialState: initialState.view
         }),
-        /*back: function (state, action) {
-            if (state === undefined) state = 0;
-            if (action.type !== constants.actionTypes.BACK) {
-                return state;
-            }
-            return state + action.payload;
-        },*/
+        // back: function (state, action) {
+        //     if (state === undefined) state = 0;
+        //     if (action.type !== constants.actionTypes.BACK) {
+        //         return state;
+        //     }
+        //     return state + action.payload;
+        // },
         reset: function (state, action) {
             return updateView(state, action);
         }

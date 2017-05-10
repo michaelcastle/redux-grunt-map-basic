@@ -7,9 +7,9 @@ define([
         /**
          * When the back is invoked then this function will goTo the last extent in the list and remove it from the cache
          */
-        goTo: function (view, goToView) {
+        goTo: function (view, viewpoint) {
             try {
-                this.recordHistory = true;
+                //this.recordHistory = false;
                 /*var options;
 
                 if (view.type === '3d') {
@@ -19,7 +19,7 @@ define([
                 } else {
                     options = view.extent;
                 }*/
-                this.view.goTo(goToView.viewpoint);
+                view.goTo(viewpoint);
             } catch (e) { 
                 console.error(e);
             } finally {

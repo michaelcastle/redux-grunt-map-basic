@@ -1,42 +1,48 @@
 define([
-    './selectors'
-], function (selectors) {
-    var subscribe = function (currentState, store, select, onChange) {
-        function handleChange() {
-            var nextState = select(store.getState());
-            if (nextState !== currentState) {
-                currentState = nextState;
-                onChange(currentState);
-            }
-        }
+    './selectors',
+    'vendor/Rx/rx.all'
+], function (selectors, Rx) {
+    var storeToStateStream = function (store, selector) {
+        var removeHandler = function (handler, unsubscribe) {
+            return unsubscribe();
+        };
 
-        var unsubscribe = store.subscribe(handleChange);
-        handleChange();
-        return unsubscribe;
+        return new Rx.Observable.fromEventPattern(
+            store.subscribe,
+            removeHandler,
+            selector
+        );
     };
-    var stateless = function (currentState, store, select, onChange) {
-        function handleChange() {
-            var storeState = store.getState();
-            var nextState = select(storeState);
-            if (currentState === undefined) currentState = nextState;
-            if (nextState !== currentState) {
-                currentState = nextState;
-                onChange(storeState.extent.present);
-            }
-        }
+    var subscribe = function (store, next, stateSelector, keySelector, viewComparer) {
+        var selector = function () {
+            return stateSelector(store.getState());
+        };
 
-        var unsubscribe = store.subscribe(handleChange);
-        handleChange();
-        return unsubscribe;
+        return storeToStateStream(store, selector)
+            .distinctUntilChanged(keySelector, viewComparer)
+            .subscribe(next);
     };
+
+
     var observe = {
         distance: function (store, onChange) {
             var currentState;
             return subscribe(currentState, store, selectors.distance, onChange);
         },
-        undo: function (store, onChange) {
-            var currentState;
-            return stateless(currentState, store, selectors.back, onChange);
+        viewChange: function (store, next) {
+
+            var viewComparer = function (viewA, viewB) {
+                if (!viewA) return false;
+                return viewA.equals(viewB);
+            };
+            var keySelector = function (view) {
+                if (!view) return view;
+                return view.extent;
+            };
+            return subscribe(store, next, selectors.view, keySelector, viewComparer);
+
+            // var currentState;
+            // return stateless(currentState, store, selectors.back, onChange);
         }
     };
 

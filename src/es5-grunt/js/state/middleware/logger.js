@@ -4,7 +4,7 @@ define([
         logActions: function (store) {
             return function wrapDispatchToAddLogging(next) {
                 return function dispatchAndLog(action) {
-                    if (action.type === 'latlong-update') {
+                    if (action.type === 'map-latlong-update') {
                         return next(action);
                     }
                     console.group(action.type);

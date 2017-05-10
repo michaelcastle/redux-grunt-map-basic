@@ -1,8 +1,9 @@
 define([
     'dojo/_base/lang',
-    './selectors'
-], function (lang, selectors) {
-    var subscribe = function (currentState, store, select, onChange) {
+    './selectors',
+    'vendor/Rx/rx.all'
+], function (lang, selectors, Rx) {
+/*    var subscribes = function (currentState, store, select, onChange) {
         function handleChange() {
             var nextState = select(store.getState());
             if (currentState === undefined) {
@@ -67,27 +68,66 @@ define([
         var unsubscribe = store.subscribe(handleChange);
         handleChange();
         return unsubscribe;
+    };*/
+
+
+    var storeToStateStream = function (store, selector) {
+        var removeHandler = function (handler, unsubscribe) {
+            return unsubscribe();
+        };
+
+        return new Rx.Observable.fromEventPattern(
+            store.subscribe,
+            removeHandler,
+            selector
+        );
     };
+    var subscribe = function (store, next, selector) {
+        return storeToStateStream(store, selector)
+            .distinctUntilChanged()
+            .subscribe(next);
+    };
+    var subscribeById = function (store, next, selector) {
+        return storeToStateStream(store)
+            .distinctUntilChanged(selector)
+            .subscribe(next);
+    };
+    var selectorById = function (store, selector, id) {
+        return function () {
+            return selector(store.getState(), id);
+        };
+    };
+    var selector = function (store, selector) {
+        return function () {
+            return selector(store.getState());
+        };
+    };
+
     var observe = {
-        layerVisibility: function (store, id, onChange) {
-            var currentState;
-            return item(currentState, store, selectors.layerVisibility, id, onChange);
+        layerVisibility: function (store, id, next) {
+            /*var currentState;
+            return item(currentState, store, selectors.layerVisibility, id, onChange);*/
+            return subscribeById(store, next, selectorById(store, selectors.layerVisibility, id));
         },
-        layerOpacity: function (store, id, onChange) {
-            var currentState;
-            return item(currentState, store, selectors.layerOpacity, id, onChange);
+        layerOpacity: function (store, id, next) {
+            /*var currentState;
+            return item(currentState, store, selectors.layerOpacity, id, onChange);*/
+            return subscribeById(store, next, selectorById(store, selectors.layerOpacity, id));
         },
-        layerClear: function (store, id, onChange) {
-            var currentState;
-            return itemClear(currentState, store, selectors.layerClear, id, onChange);
+        layerClear: function (store, id, next) {
+            /*var currentState;
+            return itemClear(currentState, store, selectors.layerClear, id, next);*/
+            return subscribeById(store, next, selectorById(store, selectors.layerClear, id));
         },
-        layerOrder: function (store, onChange) {
-            var currentState;
-            return subscribe(currentState, store, selectors.tocOrder, onChange);
+        layerOrder: function (store, next) {
+            return subscribe(store, next, selector(store, selectors.tocOrder));
+            /*var currentState;
+            return subscribes(currentState, store, selectors.tocOrder, next);*/
         },
-        toc: function (store, onChange) {
-            var currentState;
-            return addLayer(currentState, store, selectors.toc, onChange);
+        toc: function (store, next) {
+            return subscribe(store, next, selector(store, selectors.toc));
+            /* var currentState;
+             return addLayer(currentState, store, selectors.toc, onChange);*/
         }
     };
 

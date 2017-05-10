@@ -24,9 +24,7 @@ define([
             if (state === undefined) state = { isLoading: true };
             switch (action.type) {
                 case constants.actionTypes.LOADING:
-                    return {
-                        isLoading: action.payload.isLoading
-                    };
+                    return action.payload;
 
                 default:
                     return state;
@@ -36,10 +34,7 @@ define([
             if (state === undefined) state = {};
             switch (action.type) {
                 case constants.actionTypes.LAT_LONG_UPDATE:
-                    return {
-                        xy: action.payload.xy,
-                        point: action.payload.point
-                    };
+                    return action.payload;
 
                 default:
                     return state;
