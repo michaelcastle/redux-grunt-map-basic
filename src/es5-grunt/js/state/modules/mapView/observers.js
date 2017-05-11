@@ -17,32 +17,35 @@ define([
         var selector = function () {
             return stateSelector(store.getState());
         };
+        var isNotNull = function (value) {
+            return value !== undefined;
+        };
 
         return storeToStateStream(store, selector)
+            .filter(isNotNull)
             .distinctUntilChanged(keySelector, viewComparer)
             .subscribe(next);
     };
 
 
     var observe = {
-        distance: function (store, onChange) {
+        /*distance: function (store, onChange) {
             var currentState;
             return subscribe(currentState, store, selectors.distance, onChange);
-        },
-        viewChange: function (store, next) {
-
-            var viewComparer = function (viewA, viewB) {
-                if (!viewA) return false;
-                return viewA.equals(viewB);
-            };
+        },*/
+        extent: function (store, next) {
             var keySelector = function (view) {
                 if (!view) return view;
                 return view.extent;
             };
-            return subscribe(store, next, selectors.view, keySelector, viewComparer);
-
-            // var currentState;
-            // return stateless(currentState, store, selectors.back, onChange);
+            var viewComparer = function (viewA, viewB) {
+                if (!viewA) return false;
+                return viewA.equals(viewB);
+            };
+            return subscribe(store, next, selectors.extent, keySelector, viewComparer);
+        },
+        zoom: function (store, next) {
+            return subscribe(store, next, selectors.zoom);
         }
     };
 

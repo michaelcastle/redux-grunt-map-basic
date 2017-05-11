@@ -43,8 +43,12 @@ define([
         var selector = function () {
             return stateSelector(store.getState());
         };
+        var isNotNull = function (value) {
+            return value !== undefined;
+        };
 
         return storeToStateStream(store, selector)
+            .filter(isNotNull)
             .distinctUntilChanged()
             .subscribe(next);
     };

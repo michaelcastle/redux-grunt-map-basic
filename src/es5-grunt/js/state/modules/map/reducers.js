@@ -30,7 +30,7 @@ define([
                     return state;
             }
         },
-        latLongUpdate: function (state, action) {
+        coordinatesUpdate: function (state, action) {
             if (state === undefined) state = {};
             switch (action.type) {
                 case constants.actionTypes.LAT_LONG_UPDATE:

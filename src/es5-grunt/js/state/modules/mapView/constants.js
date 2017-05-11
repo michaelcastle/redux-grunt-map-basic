@@ -7,7 +7,9 @@ define([
             UPDATE_EXTENT: 'view-extent-update',
             BACK: 'view-extent-undo',
             RESET: 'view-extent-reset',
-            REDO: 'view-extent-redo'
+            REDO: 'view-extent-redo',
+            ZOOM_IN: 'view-zoom-in',
+            ZOOM_OUT: 'view-zoom-out'
         }
     };
 });

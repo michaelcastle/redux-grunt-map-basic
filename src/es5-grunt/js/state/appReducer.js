@@ -7,7 +7,7 @@ define([
 ], function (redux, mapReducers, uiReducers, layersReducers, mapViewReducers) {
     var combined = redux.combineReducers({
         loading: mapReducers.loading,
-        latLong: mapReducers.latLongUpdate,
+        latLong: mapReducers.coordinatesUpdate,
         layers: layersReducers.layers,
         view: mapViewReducers.updateView,
         buttonClick: uiReducers.buttonClick

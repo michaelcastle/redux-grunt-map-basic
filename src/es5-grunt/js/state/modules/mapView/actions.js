@@ -31,6 +31,20 @@ define([
                 type: constants.actionTypes.REDO,
                 payload: 1
             };
+        },
+        zoomIn: function (value) {
+            if (!value) value = 1;
+            return {
+                type: constants.actionTypes.ZOOM_IN,
+                payload: value
+            };
+        },
+        zoomOut: function (value) {
+            if (!value) value = 1;
+            return {
+                type: constants.actionTypes.ZOOM_OUT,
+                payload: value
+            };
         }
     };
 });

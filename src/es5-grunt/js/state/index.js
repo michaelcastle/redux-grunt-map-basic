@@ -6,7 +6,7 @@ define([
     './modules/mapView/index'
 ], function (appStore, map, ui, layers, mapView) {
 
-    var observer = {
+    var state = {
         store: appStore,
         map: map,
         ui: ui,
@@ -14,5 +14,5 @@ define([
         mapView: mapView
     };
 
-    return observer;
+    return state;
 });

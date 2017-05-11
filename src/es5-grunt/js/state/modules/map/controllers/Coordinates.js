@@ -53,7 +53,7 @@ define([
             var dms = this.convertLatLongToDMS(point.latitude, point.longitude);
 
             if (point !== null) {
-                this.store.dispatch(actions.latLongUpdate(dms.x, dms.y, dms.latitude, dms.longitude));
+                this.store.dispatch(actions.coordinatesUpdate(dms.x, dms.y, dms.latitude, dms.longitude));
             }
         },
 

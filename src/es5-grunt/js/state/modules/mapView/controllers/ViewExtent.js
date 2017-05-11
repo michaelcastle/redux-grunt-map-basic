@@ -18,17 +18,15 @@ define([
 
         constructor: function (store, view) {
             this.view = view;
-            observers.viewChange(store, lang.hitch(this, this.undo));
+            observers.extent(store, lang.hitch(this, this.extent));
         },
 
         /**
          * When the back is invoked then this function will goTo the last extent in the list and remove it from the cache
          */
-        undo: function (view) {
+        extent: function (view) {
             try {
-                if (!view) return;
-                viewChange.recordHistory = false;
-                if (view.extent.equals(this.view.extent)) return;
+                if (!view || view.extent.equals(this.view.extent)) return;
                 viewChange.goTo(this.view, view.viewpoint);
             } catch (e) { 
                 console.error(e);

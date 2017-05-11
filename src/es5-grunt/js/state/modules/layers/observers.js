@@ -83,12 +83,17 @@ define([
         );
     };
     var subscribe = function (store, next, selector) {
+        var isNotNull = function (value) {
+            return value !== undefined;
+        };
         return storeToStateStream(store, selector)
+            .filter(isNotNull)
             .distinctUntilChanged()
             .subscribe(next);
     };
     var subscribeById = function (store, next, selector) {
         return storeToStateStream(store)
+            .filter(function (value) { return !!value; })
             .distinctUntilChanged(selector)
             .subscribe(next);
     };

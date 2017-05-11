@@ -11,24 +11,24 @@ define([
     'esri/Map',
     'esri/views/MapView',
     'esri/core/promiseUtils',
-    'app/state/observer', // redux
+    'app/state/index', // redux
     'app/widgets/WidgetController', // widgets
     'esri/layers/FeatureLayer',
     'dojo/domReady!'
-], function (declare, lang, all, Map, MapView, promiseUtils, observer, WidgetController, FeatureLayer) {
+], function (declare, lang, all, Map, MapView, promiseUtils, state, WidgetController, FeatureLayer) {
 
     return declare([], {
 
         config: {},
         map: null,
         view: null,
-        observer: null,
+        state: null,
 
         constructor: function (config) {
             lang.mixin(this.config, config);
 
-            this.observer = observer;
-            observer.store.dispatch(observer.map.actions.loading(true));
+            this.state = state;
+            state.store.dispatch(state.map.actions.loading(true));
 
             this.initaliseMap();
             this.initialiseWidgets();
@@ -40,12 +40,12 @@ define([
         },
 
         afterInit: function () {
-            observer.store.dispatch(observer.map.actions.loading(false));
+            state.store.dispatch(state.map.actions.loading(false));
             return promiseUtils.resolve();
         },
 
         afterInitError: function (ex) {
-            observer.store.dispatch(observer.map.actions.loading(false));
+            state.store.dispatch(state.map.actions.loading(false));
             console.error(ex);
             return promiseUtils.resolve();
         },

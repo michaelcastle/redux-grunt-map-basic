@@ -37,13 +37,20 @@ Add some jsdoc and comment what's happening. Currently I haven't written any bec
 ### 9. Testing
 Add automated testing and decide on some framework for this
 
+### 10. Api
+The actions will become an api that could be turning into a wiki with jsdoc/gitbook. That way any interface can interact with the map based on the action api and it can be searched easily
+
 
 ## dev-tools console commands
 The following commands will update the state/map in the console
-+ `redo extent`: app.observer.store.dispatch(app.observer.mapView.actions.redo());
-+ `previous extent`: app.observer.store.dispatch(app.observer.mapView.actions.back());
-+ `clear extent tracking`: app.observer.store.dispatch(app.observer.mapView.actions.resetTrackView());
-+ `show|hide loader`: app.observer.store.dispatch(app.observer.map.actions.loading(<true|false>));
++ `redo extent`: app.state.store.dispatch(app.state.mapView.actions.redo());
++ `previous extent`: app.state.store.dispatch(app.state.mapView.actions.back());
++ `clear extent tracking`: app.state.store.dispatch(app.state.mapView.actions.resetTrackView());
++ `zoom in`: app.state.store.dispatch(app.state.mapView.actions.zoomIn());
++ `zoom out`: app.state.store.dispatch(app.state.mapView.actions.zoomOut());
+
++ `show|hide loader`: app.state.store.dispatch(app.state.map.actions.loading(<boolean>));
++ `show current coordinates`: app.state.store.dispatch(app.state.map.actions.coordinatesUpdate({ x, y, latitude, longitude }));
 
 ## Summary
 

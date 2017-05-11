@@ -21,6 +21,7 @@ module.exports = {
             '<%= pkg.directories.source %>/js/*.js',
             '<%= pkg.directories.source %>/js/**/*.js',
             '<%= pkg.directories.source %>/js/**/**/*.js',
+            '<%= pkg.directories.source %>/js/**/**/**/*.js',
             '<%= pkg.directories.source %>/css/*.css',
             '<%= pkg.directories.source %>/views/*.html',
             '<%= pkg.directories.source %>/views/**/*.js'
