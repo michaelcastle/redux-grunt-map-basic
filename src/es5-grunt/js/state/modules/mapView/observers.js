@@ -40,12 +40,15 @@ define([
             };
             var viewComparer = function (viewA, viewB) {
                 if (!viewA) return false;
-                return viewA.equals(viewB);
+                return viewA.extent.equals(viewB.extent) && viewA.zoom === viewB.zoom && viewA.rotation === viewB.rotation && viewA.type === viewB.type;
             };
             return subscribe(store, next, selectors.extent, keySelector, viewComparer);
         },
         zoom: function (store, next) {
             return subscribe(store, next, selectors.zoom);
+        },
+        rotation: function (store, next) {
+            return subscribe(store, next, selectors.rotation);
         }
     };
 

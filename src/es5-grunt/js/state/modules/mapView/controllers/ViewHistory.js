@@ -10,13 +10,19 @@ define([
 
     // redux
     '../actions',
-    './viewChange'
-], function (declare, lang, watchUtils, actions, viewChange) {
+    './viewChange',
+    './ViewExtent',
+    './ViewZoom',
+    './ViewRotation'
+], function (declare, lang, watchUtils, actions, viewChange, ViewExtent, ViewZoom, ViewRotation) {
 
     return declare([], {
 
         store: null,
         view: null,
+        viewExtent: null,
+        viewZoom: null,
+        viewRotation: null,
 
         constructor: function (store, view) {
             this.store = store;
@@ -24,6 +30,10 @@ define([
             this.view.then(lang.hitch(this, function () {
                 watchUtils.when(this.view, 'stationary', lang.hitch(this, this.extentChange));
             }));
+            
+            this.viewExtent = new ViewExtent(store, this.view);
+            this.viewZoom = new ViewZoom(store, this.view);
+            this.viewRotation = new ViewRotation(store, this.view);
         },
 
         /**
@@ -35,7 +45,7 @@ define([
                     this.store.dispatch(actions.changeExtent(this.view));
                 }
                 viewChange.recordHistory = true;
-            } catch (e) { 
+            } catch (e) {
                 console.error(e);
             }
         }

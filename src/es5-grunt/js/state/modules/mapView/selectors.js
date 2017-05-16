@@ -10,10 +10,7 @@ define([
         },
         extent: function (state) {
             if (!state.view.present) return;
-            return {
-                viewpoint: state.view.present.viewpoint,
-                extent: state.view.present.extent
-            };
+            return state.view.present;
         },
         rotation: function (state) {
             if (!state.view.present) return;

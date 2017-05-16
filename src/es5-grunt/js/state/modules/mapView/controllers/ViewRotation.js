@@ -18,7 +18,7 @@ define([
 
         constructor: function (store, view) {
             this.view = view;
-            observers.zoom(store, lang.hitch(this, this.handler));
+            observers.rotation(store, lang.hitch(this, this.handler));
         },
 
         /**
@@ -45,12 +45,12 @@ define([
 
         mapPropsToState: function () {
             if (!this.view) return undefined;
-            return this.view.zoom;
+            return this.view.rotation;
         },
 
-        mapActionToProps: function (zoom) {
+        mapActionToProps: function (rotation) {
             setTimeout(function () {
-                viewChange.goTo(this.view, { zoom: zoom });
+                viewChange.goTo(this.view, { rotation: rotation });
             }.bind(this), 100);
         }
     });
