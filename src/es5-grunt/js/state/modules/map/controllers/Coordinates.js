@@ -29,7 +29,9 @@ define([
 
             //LatLong Model
             /*if (!isMobile) {*/
-            on(this.view.container, 'mousemove', lang.hitch(this, this.onMouseMove));
+            this.view.then(function () {
+                on(this.view.container, 'mousemove', lang.hitch(this, this.onMouseMove));
+            });
             //on(this.view.container, 'mousedrag', lang.hitch(this, this.OnNRMMouseMove));
             // }
 

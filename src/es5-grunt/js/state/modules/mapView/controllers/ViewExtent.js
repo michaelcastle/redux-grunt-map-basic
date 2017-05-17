@@ -35,10 +35,11 @@ define([
 
         connect: function (state, comparer) {
             var isEqual = false;
+            var stateProp = (this.view.type === '2d') ? state.extent : state.viewpoint.camera;
             if (comparer) {
-                isEqual = comparer(this.mapPropsToState(), state);
+                isEqual = comparer(this.mapPropsToState(), stateProp);
             } else {
-                isEqual = this.mapPropsToState() === state;
+                isEqual = this.mapPropsToState() === stateProp;
             }
             if (isEqual) return;
             this.mapActionToProps(state);
@@ -46,17 +47,35 @@ define([
 
         mapCompareState: function (propA, propB) {
             if (!propA) return false;
-            return propA.extent.equals(propB.extent) && propA.zoom === propB.zoom && propA.rotation === propB.rotation && propA.type === propB.type;
+            return propA.equals(propB);
+            // if (propA.type !== propB.type) return false;
+            // if (propA.type === '2d') {
+            //     return propA.extent.equals(propB.extent);
+            // }
+            // return propA.viewpoint.camera.equals(propB.viewpoint.camera); // && propA.zoom === propB.zoom && propA.rotation === propB.rotation && propA.type === propB.type && propA.viewpoint.camera.tilt === propB.viewpoint.camera.tilt;
         },
 
         mapPropsToState: function () {
             if (!this.view) return undefined;
-            return actions.changeExtent(this.view).payload;
+
+            if (this.view.type === '2d') {
+                return this.view.extent;
+            }
+            return this.view.viewpoint.camera;
+            // return actions.changeExtent(this.view).payload;
+        },
+
+        mapGoToOptionsToState: function (state) {
+            if (state.type === '2d') {
+                return state.extent;
+            }
+            return state.viewpoint;
         },
 
         // app.view.goTo(app.state.store.getState().view.present)        
-        mapActionToProps: function (view) {
-            viewChange.goTo(this.view, view);
+        mapActionToProps: function (state) {
+            // if its 2d zoom to the extent if it has changed, otherwise zoom to the viewpoint
+            viewChange.goTo(this.view, this.mapGoToOptionsToState(state));
         }
     });
 });

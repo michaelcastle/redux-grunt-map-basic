@@ -18,7 +18,7 @@ define([
 
         constructor: function (store, view) {
             this.view = view;
-            observers.rotation(store, lang.hitch(this, this.handler));
+            observers.viewpoint(store, lang.hitch(this, this.handler));
         },
 
         /**
@@ -45,11 +45,13 @@ define([
 
         mapPropsToState: function () {
             if (!this.view) return undefined;
-            return this.view.rotation;
+            return this.view.viewpoint;
         },
 
-        mapActionToProps: function (rotation) {
-            viewChange.deferredGoTo(this.view, { rotation: rotation });
+        mapActionToProps: function (viewpoint) {
+            setTimeout(function () {
+                viewChange.deferredGoTo(this.view, { viewpoint: viewpoint });
+            }.bind(this), 100);
         }
     });
 });

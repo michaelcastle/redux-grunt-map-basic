@@ -10,6 +10,7 @@ define([
 
     'esri/Map',
     'esri/views/MapView',
+    // 'esri/views/SceneView',
     'esri/core/promiseUtils',
     'app/state/index', // redux
     'app/widgets/WidgetController', // widgets

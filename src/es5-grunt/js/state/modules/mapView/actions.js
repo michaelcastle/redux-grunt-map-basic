@@ -45,6 +45,12 @@ define([
                 type: constants.actionTypes.ZOOM_OUT,
                 payload: value
             };
+        },
+        rotation: function (value) {
+            return {
+                type: constants.actionTypes.ROTATION,
+                payload: value
+            };
         }
     };
 });

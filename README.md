@@ -43,11 +43,12 @@ The actions will become an api that could be turning into a wiki with jsdoc/gitb
 
 ## dev-tools console commands
 The following commands will update the state/map in the console
-+ `redo extent`: app.state.store.dispatch(app.state.mapView.actions.redo());
 + `previous extent`: app.state.store.dispatch(app.state.mapView.actions.back());
++ `redo extent`: app.state.store.dispatch(app.state.mapView.actions.redo());
 + `clear extent tracking`: app.state.store.dispatch(app.state.mapView.actions.resetTrackView());
 + `zoom in`: app.state.store.dispatch(app.state.mapView.actions.zoomIn());
 + `zoom out`: app.state.store.dispatch(app.state.mapView.actions.zoomOut());
++ `rotation`: app.state.store.dispatch(app.state.mapView.actions.rotation(<0-360>));
 
 + `show|hide loader`: app.state.store.dispatch(app.state.map.actions.loading(<boolean>));
 + `show current coordinates`: app.state.store.dispatch(app.state.map.actions.coordinatesUpdate({ x, y, latitude, longitude }));

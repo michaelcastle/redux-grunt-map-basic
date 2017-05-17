@@ -35,6 +35,15 @@ define([
                     viewpoint: state.viewpoint ? state.viewpoint.clone() : {}
                 };
 
+            case constants.actionTypes.ROTATION:
+                return {
+                    extent: state.extent ? state.extent.clone() : {},
+                    rotation: action.payload,
+                    zoom: state.zoom,
+                    type: state.type,
+                    viewpoint: state.viewpoint ? state.viewpoint.clone() : {}
+                };
+
             default:
                 return state;
         }
@@ -46,16 +55,9 @@ define([
             undoType: constants.actionTypes.BACK,
             redoType: constants.actionTypes.REDO,
             clearHistoryType: constants.actionTypes.RESET,
-            filter: constants.actionTypes.ZOOM_IN,
+            filter: reduxUndo.includeAction([constants.actionTypes.UPDATE_EXTENT]),
             initialState: initialState.view
         }),
-        // back: function (state, action) {
-        //     if (state === undefined) state = 0;
-        //     if (action.type !== constants.actionTypes.BACK) {
-        //         return state;
-        //     }
-        //     return state + action.payload;
-        // },
         reset: function (state, action) {
             return updateView(state, action);
         },
@@ -63,6 +65,9 @@ define([
             return updateView(state, action);
         },
         zoomOut: function (state, action) {
+            return updateView(state, action);
+        },
+        rotation: function (state, action) {
             return updateView(state, action);
         }
     };

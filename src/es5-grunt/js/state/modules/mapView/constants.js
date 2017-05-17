@@ -9,7 +9,8 @@ define([
             RESET: 'view-extent-reset',
             REDO: 'view-extent-redo',
             ZOOM_IN: 'view-zoom-in',
-            ZOOM_OUT: 'view-zoom-out'
+            ZOOM_OUT: 'view-zoom-out',
+            ROTATION: 'view-rotation'
         }
     };
 });

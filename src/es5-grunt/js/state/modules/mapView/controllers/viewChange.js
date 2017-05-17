@@ -18,7 +18,23 @@ define([
                 options = view.extent;
             }*/
             this.recordHistory = false;
-            view.goTo(viewpoint);
+            this.deferredGoTo(view, viewpoint);
+        },
+
+        deferredGoTo: function (view, options) {
+            if (view.stationary) {
+                view.goTo(options);
+            } else {
+                if (view.type === '2d') {
+                    return;
+                }
+                // setTimeout(function () {
+                //     view.goTo(options);
+                // }.bind(this), 100);
+                view.then(function () {
+                    view.goTo(options);
+                }).otherwise(console.error);
+            }
         }
     };
 });
