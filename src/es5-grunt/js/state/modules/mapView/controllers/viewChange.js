@@ -25,15 +25,24 @@ define([
             if (view.stationary) {
                 view.goTo(options);
             } else {
-                if (view.type === '2d') {
-                    return;
-                }
-                // setTimeout(function () {
-                //     view.goTo(options);
-                // }.bind(this), 100);
-                view.then(function () {
+                var unwatch = view.watch('stationary', function () {
                     view.goTo(options);
-                }).otherwise(console.error);
+                    unwatch.remove();
+                }.bind(this));
+
+                // if (!this.view.stationary) {
+                //     console.error('not stationary!!!');
+                // }
+
+                // if (view.type === '2d') {
+                //     return;
+                // }
+                // // setTimeout(function () {
+                // //     view.goTo(options);
+                // // }.bind(this), 100);
+                // view.then(function () {
+                //     view.goTo(options);
+                // }).otherwise(console.error);
             }
         }
     };

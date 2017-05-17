@@ -10,8 +10,9 @@ define([
     './viewChange',
     // redux
     '../actions',
-    '../observers'
-], function (declare, lang, viewChange, actions, observers) {
+    '../observers',
+    'dojo/Deferred'
+], function (declare, lang, viewChange, actions, observers, Deferred) {
 
     return declare([], {
 
@@ -34,29 +35,45 @@ define([
         },
 
         connect: function (state, comparer) {
-            var isEqual = false;
-            var stateProp = (this.view.type === '2d') ? state.extent : state.viewpoint.camera;
-            if (comparer) {
-                isEqual = comparer(this.mapPropsToState(), stateProp);
+            this.asyncProps().then(function (viewState) {
+                var isEqual = false;
+                var stateProp = (this.view.type === '2d') ? state.extent : state.viewpoint.camera;
+                if (comparer) {
+                    isEqual = comparer(viewState, stateProp);
+                } else {
+                    isEqual = viewState === stateProp;
+                }
+                if (isEqual) return;
+                this.mapActionToProps(state);
+            }.bind(this));
+        },
+
+        asyncProps: function () {
+            var deferred = new Deferred();
+            if (!this.view) return deferred.resolve(undefined);
+            if (this.view.stationary) {
+                deferred.resolve(this.mapPropsToState());
             } else {
-                isEqual = this.mapPropsToState() === stateProp;
+                // View is busy so we need to wait until its finished to read the zoom level for comparison
+                var unwatch = this.view.watch('stationary', function () {
+                    deferred.resolve(this.mapPropsToState());
+                    unwatch.remove();
+                }.bind(this));
             }
-            if (isEqual) return;
-            this.mapActionToProps(state);
+            return deferred.promise;
         },
 
         mapCompareState: function (propA, propB) {
             if (!propA) return false;
             return propA.equals(propB);
-            // if (propA.type !== propB.type) return false;
-            // if (propA.type === '2d') {
-            //     return propA.extent.equals(propB.extent);
-            // }
-            // return propA.viewpoint.camera.equals(propB.viewpoint.camera); // && propA.zoom === propB.zoom && propA.rotation === propB.rotation && propA.type === propB.type && propA.viewpoint.camera.tilt === propB.viewpoint.camera.tilt;
         },
 
         mapPropsToState: function () {
             if (!this.view) return undefined;
+
+            if (!this.view.stationary) {
+                console.error('not stationary!!!');
+            }
 
             if (this.view.type === '2d') {
                 return this.view.extent;

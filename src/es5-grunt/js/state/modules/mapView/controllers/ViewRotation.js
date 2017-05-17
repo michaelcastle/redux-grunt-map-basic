@@ -9,8 +9,9 @@ define([
 
     './viewChange',
     // redux
-    '../observers'
-], function (declare, lang, viewChange, observers) {
+    '../observers',
+    'dojo/Deferred'
+], function (declare, lang, viewChange, observers, Deferred) {
 
     return declare([], {
 
@@ -33,14 +34,31 @@ define([
         },
 
         connect: function (state, comparer) {
-            var isEqual = false;
-            if (comparer) {
-                isEqual = comparer(this.mapPropsToState(), state);
+            this.asyncProps().then(function (viewState) {
+                var isEqual = false;
+                if (comparer) {
+                    isEqual = comparer(viewState, state);
+                } else {
+                    isEqual = viewState === state;
+                }
+                if (isEqual) return;
+                this.mapActionToProps(state);
+            }.bind(this));
+        },
+
+        asyncProps: function () {
+            var deferred = new Deferred();
+            if (!this.view) return deferred.resolve(undefined);
+            if (this.view.stationary) {
+                deferred.resolve(this.mapPropsToState());
             } else {
-                isEqual = this.mapPropsToState() === state;
+                // View is busy so we need to wait until its finished to read the zoom level for comparison
+                var unwatch = this.view.watch('stationary', function () {
+                    deferred.resolve(this.mapPropsToState());
+                    unwatch.remove();
+                }.bind(this));
             }
-            if (isEqual) return;
-            this.mapActionToProps(state);
+            return deferred.promise;
         },
 
         mapPropsToState: function () {

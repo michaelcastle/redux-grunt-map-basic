@@ -10,9 +10,8 @@ define([
     './viewChange',
     // redux
     '../observers',
-    'esri/core/promiseUtils',
     'dojo/Deferred'
-], function (declare, lang, viewChange, observers, promiseUtils, Deferred) {
+], function (declare, lang, viewChange, observers, Deferred) {
 
     return declare([], {
 
@@ -34,26 +33,16 @@ define([
             }
         },
 
-        connect1: function (state, comparer) {
-            // need to return true for 3d because rotation is not used in 3d, just the viewpoint
-            // if (this.view.type !== '2d') return true;
-            var isEqual = false;
-            if (comparer) {
-                isEqual = comparer(this.mapPropsToState(), state);
-            } else {
-                isEqual = this.mapPropsToState() === state;
-            }
-            if (isEqual) return;
-            this.mapActionToProps(state);
-        },
-
-        connect: function (state) {
+        connect: function (state, comparer) {
             this.asyncProps().then(function (viewState) {
-                if (viewState === state) {
-                    return;
+                var isEqual = false;
+                if (comparer) {
+                    isEqual = comparer(viewState, state);
                 } else {
-                    this.mapActionToProps(state);
+                    isEqual = viewState === state;
                 }
+                if (isEqual) return;
+                this.mapActionToProps(state);
             }.bind(this));
         },
 
@@ -61,10 +50,12 @@ define([
             var deferred = new Deferred();
             if (!this.view) return deferred.resolve(undefined);
             if (this.view.stationary) {
-                deferred.resolve(this.view.zoom);
+                deferred.resolve(this.mapPropsToState());
             } else {
-                this.view.then(function () {
-                    deferred.resolve(this.view.zoom);
+                // View is busy so we need to wait until its finished to read the zoom level for comparison
+                var unwatch = this.view.watch('stationary', function () {
+                    deferred.resolve(this.mapPropsToState());
+                    unwatch.remove();
                 }.bind(this));
             }
             return deferred.promise;
@@ -72,7 +63,7 @@ define([
 
         mapPropsToState: function () {
             if (!this.view) return undefined;
-            return this.view.zoom;
+            return this.view.get('zoom');
         },
 
         mapActionToProps: function (zoom) {
