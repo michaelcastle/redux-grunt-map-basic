@@ -36,12 +36,24 @@ define([
                 };
 
             case constants.actionTypes.ROTATION:
+                var vp = state.viewpoint ? state.viewpoint.clone() : {};
+                viewpoint.rotation = action.payload;
                 return {
                     extent: state.extent ? state.extent.clone() : {},
                     rotation: action.payload,
                     zoom: state.zoom,
                     type: state.type,
-                    viewpoint: state.viewpoint ? state.viewpoint.clone() : {}
+                    viewpoint: vp
+                };
+
+            case constants.actionTypes.BACK:
+                return {
+                    extent: state.extent ? state.extent.clone() : {},
+                    rotation: action.payload,
+                    zoom: state.zoom,
+                    type: state.type,
+                    viewpoint: state.viewpoint ? state.viewpoint.clone() : {},
+                    noRecord: true 
                 };
 
             default:
@@ -55,9 +67,9 @@ define([
             undoType: constants.actionTypes.BACK,
             redoType: constants.actionTypes.REDO,
             clearHistoryType: constants.actionTypes.RESET,
-            filter: reduxUndo.includeAction([constants.actionTypes.UPDATE_EXTENT]),
+            filter: reduxUndo.includeAction(constants.actionTypes.UPDATE_EXTENT), //[constants.actionTypes.UPDATE_EXTENT/*, constants.actionTypes.ROTATION*/]),
             initialState: initialState.view
-        }),
+        })/*,
         reset: function (state, action) {
             return updateView(state, action);
         },
@@ -69,6 +81,9 @@ define([
         },
         rotation: function (state, action) {
             return updateView(state, action);
-        }
+        },
+        back: function (state, action) {
+            return updateView(state, action);
+        }*/
     };
 });

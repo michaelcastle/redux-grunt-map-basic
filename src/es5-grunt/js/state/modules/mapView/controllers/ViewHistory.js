@@ -30,7 +30,7 @@ define([
             this.view.then(lang.hitch(this, function () {
                 watchUtils.when(this.view, 'stationary', lang.hitch(this, this.extentChange));
             }));
-            
+
             this.viewExtent = new ViewExtent(store, this.view);
             this.viewZoom = new ViewZoom(store, this.view);
             this.viewRotation = new ViewRotation(store, this.view);
@@ -40,14 +40,7 @@ define([
          * When the map extent is changed then this function creates a copy of the extent and saves it in an array
          */
         extentChange: function () {
-            try {
-                if (this.view.extent && viewChange.recordHistory) {
-                    this.store.dispatch(actions.changeExtent(this.view));
-                }
-                viewChange.recordHistory = true;
-            } catch (e) {
-                console.error(e);
-            }
+            this.store.dispatch(actions.changeExtent(this.view));
         }
     });
 });

@@ -5,20 +5,28 @@ define([
             return state.view.present;
         },*/
         zoom: function (state) {
-            if (!state.view.present) return;
-            return state.view.present.zoom;
+            if (!state) return;
+            return state.zoom;
         },
         extent: function (state) {
-            if (!state.view.present) return;
-            return state.view.present;
+            if (!state) return;
+            return state.extent;
+        },
+        viewpoint: function (state) {
+            if (!state) return;
+            return state.viewpoint;
         },
         rotation: function (state) {
-            if (!state.view.present) return;
-            return state.view.present.rotation;
+            if (!state) return;
+            return state.rotation;
         },
         type: function (state) {
+            if (!state) return;
+            return state.type;
+        },
+        view: function (state) {
             if (!state.view.present) return;
-            return state.view.present.type;
+            return state.view.present;
         }
     };
     return selector;

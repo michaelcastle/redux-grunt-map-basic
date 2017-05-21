@@ -1,7 +1,8 @@
 define([
     './selectors',
-    'vendor/Rx/rx.all'
-], function (selectors, Rx) {
+    'vendor/Rx/rx.all',
+    './comparers'
+], function (selectors, Rx, comparers) {
     var storeToStateStream = function (store, selector) {
         var removeHandler = function (handler, unsubscribe) {
             return unsubscribe();
@@ -31,29 +32,44 @@ define([
             .distinctUntilChanged(keySelector, viewComparer)
             .subscribe(next);
     };
-
-
+    
     var observe = {
         /*distance: function (store, onChange) {
             var currentState;
             return subscribe(currentState, store, selectors.distance, onChange);
         },*/
         extent: function (store, next) {
-            var viewComparer = function (viewA, viewB) {
-                if (!viewA) return false;
-                return viewA.extent.equals(viewB.extent) && viewA.zoom === viewB.zoom && viewA.rotation === viewB.rotation && viewA.type === viewB.type && viewA.viewpoint.camera && viewA.viewpoint.camera.equals(viewB.viewpoint.camera);
+            var extentSelector = function (state) {
+                var extent = selectors.extent(state);
+                if (!extent || isNaN(extent)) return;
+                return state;
             };
-            return subscribe(store, next, selectors.extent, false, viewComparer);
+            var comparer = function (viewA, viewB) {
+                return comparers.extentComparer(viewA, viewB) && !comparers.rotationComparer(viewA, viewB) && !comparers.zoomComparer(viewA, viewB);
+            };
+            return subscribe(store, next, selectors.view, extentSelector, comparer);
         },
         zoom: function (store, next) {
-            var zoomComparer = function (viewA, viewB) {
-                if (viewA.type !== '2d') return true;
-                return viewA.zoom === viewB.zoom;
+            var zoomSelector = function (state) {
+                var zoom = selectors.zoom(state);
+                if (!zoom || isNaN(zoom)) return;
+                return state;
             };
-            return subscribe(store, next, selectors.zoom);
+            var comparer = function (viewA, viewB) {
+                return !comparers.extentComparer(viewA, viewB) && !comparers.rotationComparer(viewA, viewB) && comparers.zoomComparer(viewA, viewB);
+            };
+            return subscribe(store, next, selectors.view, zoomSelector, comparer);
         },
         rotation: function (store, next) {
-            return subscribe(store, next, selectors.rotation);
+            var rotationSelector = function (state) {
+                var rotation = selectors.rotation(state);
+                if (!rotation || isNaN(rotation)) return;
+                return state;
+            };
+            var comparer = function (viewA, viewB) {
+                return !comparers.extentComparer(viewA, viewB) && comparers.rotationComparer(viewA, viewB) && !comparers.zoomComparer(viewA, viewB);
+            };
+            return subscribe(store, next, selectors.view, rotationSelector, comparer);
         }
     };
 

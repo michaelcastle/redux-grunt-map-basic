@@ -27,7 +27,7 @@ define([
          */
         handler: function (state) {
             try {
-                this.connect(state);
+                this.connect(state.rotation);
             } catch (e) {
                 console.error(e);
             }
@@ -67,7 +67,7 @@ define([
         },
 
         mapActionToProps: function (rotation) {
-            viewChange.deferredGoTo(this.view, { rotation: rotation });
+            viewChange.goTo(this.view, { rotation: rotation });
         }
     });
 });

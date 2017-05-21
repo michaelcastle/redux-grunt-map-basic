@@ -1,6 +1,20 @@
 define([
-    './constants'
-], function (constants) {
+    './constants',
+    './selectors',
+    './comparers'
+], function (constants, selectors, comparers) {
+    var viewChange = function (view) {
+        return {
+            type: constants.actionTypes.UPDATE_EXTENT,
+            payload: {
+                extent: selectors.extent(view),
+                rotation: selectors.rotation(view),
+                zoom: selectors.zoom(view),
+                type: selectors.type(view),
+                viewpoint: selectors.viewpoint(view)
+            }
+        };
+    };
     return {
         resetTrackView: function () {
             return {
@@ -9,27 +23,12 @@ define([
             };
         },
         changeExtent: function (view) {
-            return {
-                type: constants.actionTypes.UPDATE_EXTENT,
-                payload: {
-                    extent: view.extent,
-                    rotation: view.rotation,
-                    zoom: view.zoom,
-                    type: view.type,
-                    viewpoint: view.viewpoint
+            return function (dispatch, getState) {
+                var currentState = getState().view.present;
+                if (currentState && comparers.viewComparer(currentState, view)) {
+                    return;
                 }
-            };
-        },
-        back: function () {
-            return {
-                type: constants.actionTypes.BACK,
-                payload: 1
-            };
-        },
-        redo: function () {
-            return {
-                type: constants.actionTypes.REDO,
-                payload: 1
+                dispatch(viewChange(view));
             };
         },
         zoomIn: function (value) {
@@ -50,6 +49,18 @@ define([
             return {
                 type: constants.actionTypes.ROTATION,
                 payload: value
+            };
+        },
+        back: function () {
+            return {
+                type: constants.actionTypes.BACK,
+                payload: 1
+            };
+        },
+        redo: function () {
+            return {
+                type: constants.actionTypes.REDO,
+                payload: 1
             };
         }
     };

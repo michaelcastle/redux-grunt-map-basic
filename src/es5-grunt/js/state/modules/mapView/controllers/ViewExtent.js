@@ -36,14 +36,12 @@ define([
 
         connect: function (state, comparer) {
             this.asyncProps().then(function (viewState) {
-                var isEqual = false;
                 var stateProp = (this.view.type === '2d') ? state.extent : state.viewpoint.camera;
                 if (comparer) {
-                    isEqual = comparer(viewState, stateProp);
+                    if (comparer(viewState, stateProp)) return;
                 } else {
-                    isEqual = viewState === stateProp;
+                    if (viewState === stateProp) return;
                 }
-                if (isEqual) return;
                 this.mapActionToProps(state);
             }.bind(this));
         },
@@ -54,7 +52,7 @@ define([
             if (this.view.stationary) {
                 deferred.resolve(this.mapPropsToState());
             } else {
-                // View is busy so we need to wait until its finished to read the zoom level for comparison
+                // View is busy so we need to wait until it's finished to read the zoom level for comparison
                 var unwatch = this.view.watch('stationary', function () {
                     deferred.resolve(this.mapPropsToState());
                     unwatch.remove();
@@ -84,7 +82,7 @@ define([
 
         mapGoToOptionsToState: function (state) {
             if (state.type === '2d') {
-                return state.extent;
+                return state;
             }
             return state.viewpoint;
         },

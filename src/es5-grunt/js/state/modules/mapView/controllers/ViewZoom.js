@@ -27,7 +27,7 @@ define([
          */
         handler: function (state) {
             try {
-                this.connect(state);
+                this.connect(state.zoom);
             } catch (e) {
                 console.error(e);
             }
@@ -67,7 +67,7 @@ define([
         },
 
         mapActionToProps: function (zoom) {
-            viewChange.deferredGoTo(this.view, { zoom: zoom });
+            viewChange.goTo(this.view, { zoom: zoom });
         }
     });
 });

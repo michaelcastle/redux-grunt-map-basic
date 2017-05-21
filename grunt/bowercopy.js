@@ -8,7 +8,8 @@ module.exports = {
             'Redux': 'redux/dist/redux.min.js',
             'ReduxUndo': 'redux-undo/dist/redux-undo.js',
             'ReduxObservable': 'redux-observable/dist/redux-observable.min.js',
-            'Rx': 'rx/dist/rx.all.js'
+            'Rx': 'rx/dist/rx.all.js',
+            'ReduxThunk': 'redux-thunk/dist/redux-thunk.min.js'
         }
     }
 };
